@@ -1,0 +1,91 @@
+<div *ngIf="!!videoContent" class="vc-detail">
+    <div class="row">
+        <div class="col-8 d-flex justify-content-center">
+            <div class="vc-info">
+                <h3>{{videoContent.title}}</h3>
+                <div class="row">
+                    <div class="col">
+                        <h4>Ano:</h4>
+                    </div>
+                    <div class="col">
+                        <h4>{{videoContent.year}}</h4>
+                    </div>
+                </div>
+                <div *ngIf="isMovie()" class="row">
+                    <div class="col">
+                        <h4>Duração:</h4>
+                    </div>
+                    <div class="col">
+                        <h4 [innerHtml]="getVcDuration()"></h4>
+                    </div>
+                </div>
+                <div *ngIf="isTvSeries()" class="row">
+                    <div class="col">
+                        <h4>Quantidade de Episódios:</h4>
+                    </div>
+                    <div class="col">
+                        <h4 [innerHtml]="getVcEpisodes()"></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Formato:</h4>
+                    </div>
+                    <div class="col">
+                        <h4>{{videoContent.format.description}}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Categorias:</h4>
+                    </div>
+                    <div class="col">
+                        <h4 [innerHtml]="getVcCategories()"></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Dono: </h4>
+                    </div>
+                    <div class="col">
+                        <h4>{{videoContent.owner.name}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 d-flex justify-content-center">
+            <img [src]="getVcPicture()">
+        </div>
+    </div>
+    <div *ngIf="isTvSeries()" class="episodes">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center">
+                <h4>Episódios</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <h5>Título</h5>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <h5>Duração</h5>
+            </div>
+        </div>
+        <div *ngFor="let episode of videoContent.episodes" class="row">
+            <div class="col d-flex justify-content-center">
+                <h5>{{episode.title}}</h5>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <h5>{{episode.duration}} minutos</h5>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="canEdit()" class="row mt-5">
+        <div class="col d-flex justify-content-center">
+            <button (click)="goToEdit()">Editar</button>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <button (click)="deleteVc()">Excluir</button>
+        </div>
+    </div>
+</div>

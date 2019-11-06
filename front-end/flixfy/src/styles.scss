@@ -1,0 +1,154 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@font-face {
+    font-family: 'Droid Sans Mono';
+    src: url('assets/fonts/DroidSansMono.ttf');
+}
+
+body {
+
+    font-family: 'Droid Sans Mono';
+    background-color: #454553;
+    color:#fff;
+    overflow-x: hidden;
+
+}
+
+
+.container {
+
+    display:flex;
+    min-height: 100vh;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+
+    form {
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        .form-element {
+
+            display: flex;
+            flex-direction: column;
+    
+            label {
+    
+                width: 315px;
+                margin: 0 15px;
+    
+            }
+    
+            input {
+    
+                width: 325px;
+                max-width: 500px;
+                padding:5px;
+                border:none;
+                border-radius:3px;
+                height:45px;
+                margin: 15px;
+
+                &:focus {
+
+                    border: 3px solid #4AA0D5;
+                    // height: 27px;
+                    // width: 312px;
+                    //box-sizing: border-box;
+
+                }
+    
+            }
+
+            select {
+
+                width: 325px;
+                height: 42px;
+                border-radius: 3px;
+                background-color: #4AA0D5;
+                color: #fff;
+                border: none;
+                position: relative;
+                left: 10px;
+            
+            }
+    
+           
+    
+        }
+
+        button[type="submit"] {
+
+            background-color: #4AA0D5;
+            border:none;
+            color:#fff;
+            font-family: 'Droid Sans Mono';
+            font-weight: bold;
+            width: 325px;
+            height: 41px;
+            border-radius: 3px;
+
+
+        }
+
+    }
+
+
+
+
+
+}
+
+.app-container {
+
+
+}
+
+
+.sidebar {
+
+    width: 20%;
+    height: 100vh;
+    position:fixed;
+    background-color: #4AA0D5;
+
+}
+
+.app-content {
+
+    margin-left: 20%;
+    width: 80%;
+    padding-top: 20px;
+
+}
+
+button {
+
+    background-color: #4AA0D5;
+    border:none;
+    color:#fff;
+    font-family: 'Droid Sans Mono';
+    font-weight: bold;
+    width: 325px;
+    height: 41px;
+    border-radius: 3px;
+
+
+}
+
+hr {
+
+    width: 100%;
+    border-top: 1px solid #4AA0D5;
+    //margin: 0;
+
+}

@@ -1,24 +1,16 @@
 package com.igormoura.flixfy.model.video;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.igormoura.flixfy.model.user.User;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class VideoContent {
 
 	@Id
@@ -31,14 +23,15 @@ public class VideoContent {
 	private Integer duration;
 	
 	private Integer year;
-	
+
+	@JsonIgnore
 	private String pictureUrl;
 	
 	@ManyToOne
 	private User owner;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "profile", nullable = false)
+	@Column(name = "type", nullable = false)
 	private ContentType type;
 	
 	@ManyToOne
@@ -49,6 +42,10 @@ public class VideoContent {
 				joinColumns = @JoinColumn(name = "id_video"),
 				inverseJoinColumns = @JoinColumn(name = "id_category"))
 	private List<Category> categories = new ArrayList<Category>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "video_id")
+	private List<Episode> episodes = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -121,6 +118,14 @@ public class VideoContent {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public List<Episode> getEpisodes() {
+		return episodes;
+	}
+
+	public void setEpisodes(List<Episode> episodes) {
+		this.episodes = episodes;
 	}
 	
 	

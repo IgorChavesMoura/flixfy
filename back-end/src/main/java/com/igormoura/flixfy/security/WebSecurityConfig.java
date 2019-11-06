@@ -9,11 +9,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
 
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private JwtUserDetailsService userDetailsService;
 
 	@Autowired
 	public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -38,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -49,23 +48,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
 	@Override
-	protected void configure(HttpSecurity httpSecurity) throws Exception {		
-		
-		
-		
-		httpSecurity.csrf().disable().exceptionHandling().
-		authenticationEntryPoint(unauthorizedHandler).and()
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().authorizeRequests()
-		.antMatchers(
-				"/signup/**",
-				"/login/**")
-		.permitAll().anyRequest().authenticated()/*.and()
-        .logout().logoutUrl("/log-out").invalidateHttpSession(true)*/;
-		
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+
+		httpSecurity
+				.csrf().disable()
+				.exceptionHandling()
+				.authenticationEntryPoint(unauthorizedHandler)
+				.and()
+				.authorizeRequests()
+				.antMatchers("/vc/save","/vc/picture/**","/signup/**", "/login/**", "/user-exists/**").permitAll()
+				//.antMatchers("/admin/**").hasAuthority("ADMIN")
+				.anyRequest().authenticated()
+				.and()
+				.logout()
+				.logoutUrl("/logout")
+				.permitAll()
+				.logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
+					httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+				});
+
+
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-		
+
 		httpSecurity.headers().cacheControl();
 	}
 

@@ -1,0 +1,68 @@
+<div *ngIf="!!videoContent" class="container">
+
+    <form ngNativeValidate (submit)="saveVc()">
+        <div>
+            <div class="form-element">
+                <label for="title">Título</label>
+                <input type="text" name="title" [(ngModel)]="videoContent.title" placeholder="Título" required>
+            </div>
+            <div class="form-element" *ngIf="!isTVSeries()">
+                <label for="duration">Duração (minutos)</label>
+                <input type="number" name="duration" [(ngModel)]="videoContent.duration" placeholder="Duração" required>
+            </div>
+            <div class="form-element">
+                <label for="year">Ano</label>
+                <input type="number" name="year" placeholder="Ano" [(ngModel)]="videoContent.year" required>
+            </div>
+            <div class="form-element">
+                <label for="format">Formato</label>
+                <select name="format" (change)="onFormatChange()" [(ngModel)]="videoContent.format" required>
+                    <option [ngValue]="format" *ngFor="let format of formats">{{format.description}}</option>
+                </select>
+            </div>
+            
+            <div class="form-element">
+                <label for="type">Tipo</label>
+                <select name="type" (change)="onTypeChange($event.target.value)" required>
+                    <option value="MOVIE">Filme</option>
+                    <option value="TV_SERIES">Série</option>
+                </select>
+            </div>
+            <div *ngIf="isTVSeries()" class="form-element">
+                <h5>Episódios</h5>
+                <div class="row" *ngFor="let episode of episodes;let i = index">
+                    <div class="col">
+                        <label [for]="'episode-' + i + '-title'">Título</label>
+                        <input [name]="'episode-' + i + '-title'" type="text" [(ngModel)]="episode.title">
+                    </div>
+                    <div class="col">
+                        <label [for]="'episode-' + i + '-duration'">Duração</label>
+                        <input [name]="'episode-' + i + '-duration'" type="number" [(ngModel)]="episode.duration">
+                    </div>
+                    <div class="col" (click)="deleteEpisode(episode)" >
+                        <i class="far fa-times-circle"></i>
+                    </div>
+                </div>
+                <button type="button" (click)="addEpisode()">Adicionar Episódio</button>
+            </div>
+            <div class="form-element mt-3">
+                <label for="picture">Escolher Capa</label>
+                <input type="file" name="picture" multiple="false" accept="image/png,image/jpeg"
+                    (change)="handleFileInput($event.target.files)">
+            </div>
+            
+            <button type="submit">Salvar</button>
+        </div>
+        <div>
+            <div class="form-element d-flex justify-content-center mt-5 mb-5">
+                <h5 class="d-flex justify-content-center" >Categorias</h5>
+                <div class="d-flex justify-content-center" *ngFor="let category of categoriesSelect">
+                    <label class="checkbox-label" [for]="category.category.id">{{category.category.description}}</label>
+                    <input class="checkbox-input" type="checkbox" [(ngModel)]="category.selected" [name]="category.category.id">
+                </div>
+            </div>
+        </div>
+        
+    </form>
+
+</div>

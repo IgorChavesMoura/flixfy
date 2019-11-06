@@ -1,0 +1,41 @@
+.vc-search {
+
+    padding-left: 15px;
+
+    input {
+
+        width: 80%;
+        height: 42px;
+        border-radius: 3px 0px 0px 3px;
+        border:none;
+        padding: 5px;
+
+        &:focus {
+
+            border: 3px solid #4AA0D5;
+
+        }
+
+    }
+
+    select {
+
+        height: 42px;
+        border-radius: 3px;
+        background-color: #4AA0D5;
+        color: #fff;
+        border: none;
+
+    }
+
+    .search-button {
+
+        width: 20%;
+        height: 42px;
+        border-radius: 0px 3px 3px 0px;
+        position: relative;
+        bottom: 1px;
+
+    }
+
+}

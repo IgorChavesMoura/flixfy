@@ -1,0 +1,8 @@
+<div class="app-container">
+    <div class="sidebar" *ngIf="!!auth.currentUser" >
+        <app-sidebar></app-sidebar>
+    </div>
+    <div [class.app-content]="!!auth.currentUser"  >
+        <router-outlet></router-outlet>
+    </div>
+</div>

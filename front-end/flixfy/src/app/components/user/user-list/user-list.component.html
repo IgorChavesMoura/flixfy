@@ -1,0 +1,22 @@
+<div class="user-list">
+    <div class="row">
+        <div class="col">
+            <h2>Pesquisar usuários</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input type="text" [(ngModel)]="query" placeholder="Pesquisar por nome ou login" >
+            <button class="search-button"  (click)="findUsers()" >Pesquisar <i class="fas fa-search"></i></button>
+        </div>
+    </div>
+    <div class="row user-item" *ngFor="let user of users" >
+        <div class="col d-flex flex-column" (click)="goToDetail(user)" >
+            <h4>{{user.name}}</h4>
+            <h6>@{{user.login}}</h6>
+        </div>
+        <div *ngIf="isAdmin()" (click)="deleteUser(user)" class="col-2 d-flex flex-column justify-content-center align-items-center">
+            <i class="far fa-times-circle"></i>
+        </div>
+    </div>
+</div>

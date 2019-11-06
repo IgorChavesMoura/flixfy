@@ -1,9 +1,12 @@
 package com.igormoura.flixfy.service;
 
+import com.igormoura.flixfy.model.video.Format;
+import com.igormoura.flixfy.repository.FormatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.igormoura.flixfy.repository.FormatRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FormatService {
@@ -19,7 +22,7 @@ public class FormatService {
 	
 	public Optional<Format> findOne(Long id){
 		
-		return Optional.ofNullable(formatRepository.findOne(id));
+		return Optional.ofNullable(formatRepository.getOne(id));
 		
 	}
 	
@@ -27,7 +30,7 @@ public class FormatService {
 		
 		if(f.getId() != null) {
 			
-			Format formatDB = formatRepository.findOne(f.getId());
+			Format formatDB = formatRepository.getOne(f.getId());
 			
 			formatDB.setDescription(f.getDescription());
 			
@@ -47,7 +50,7 @@ public class FormatService {
 	
 	public void delete(Long id) {
 		
-		formatRepository.delete(id);
+		formatRepository.deleteById(id);
 		
 	}
 	

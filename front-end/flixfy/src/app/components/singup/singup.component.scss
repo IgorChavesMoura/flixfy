@@ -1,0 +1,19 @@
+.exists::after  {
+
+    content:' Login já existente';
+    font-size:9px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    color:#4AA0D5;
+
+}
+
+.password-different::after {
+
+    content:' Senhas não coincidem';
+    font-size:9px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    color:#4AA0D5;
+
+}

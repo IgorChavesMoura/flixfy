@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Alterar cadastro</h1>
+    <form ngNativeValidate (submit)="save()">
+        <div class="form-element" >  
+            <label for="login">Login (Mínimo de 4 caracteres)</label>
+            <input type="text" name="login"  placeholder="Login" [(ngModel)]="user.login" disabled
+                required pattern=".{4,}">
+        </div>
+        <div class="form-element">
+            <label for="password">Senha (Mínimo de 4 caracteres)</label>
+            <input type="password" name="password" placeholder="Senha" [(ngModel)]="user.password" 
+                pattern=".{4,}">
+        </div>
+        <div class="form-element" [class.password-different]="!passwordMatch" >
+            <label for="password-confirm">Confirmar Senha</label>
+            <input type="password" name="password-confirm" placeholder="Senha" [(ngModel)]="passwordConfirm"
+                pattern=".{4,}" (change)="verifyPasswordMatch()" >
+        </div>
+        <div class="form-element">
+            <label for="name">Nome</label>
+            <input type="text" name="name" placeholder="Nome" [(ngModel)]="user.name" required >
+        </div>
+        <div class="form-element">
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Email" [(ngModel)]="user.email" required>
+        </div>
+        <button type="submit">Salvar</button>
+    </form>
+
+</div>

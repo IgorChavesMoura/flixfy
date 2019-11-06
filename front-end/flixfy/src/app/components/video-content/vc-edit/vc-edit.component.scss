@@ -1,0 +1,27 @@
+.checkbox-label {
+
+    position: relative;
+    width: 60px !important;
+    top: 25px;
+
+}
+
+.checkbox-input {
+
+    width: 30px !important;
+
+}
+
+form>div{
+    display: inline-block;
+    vertical-align: top;
+}
+
+form>:nth-child(2){
+    position: relative;
+    top: -52px;
+}
+
+form{
+    flex-direction: row;
+}

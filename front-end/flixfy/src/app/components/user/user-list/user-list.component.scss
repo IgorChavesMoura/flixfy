@@ -1,0 +1,45 @@
+.user-list {
+
+    padding-left: 15px;
+
+    input {
+
+        width: 85%;
+        height: 42px;
+        border-radius: 3px 0px 0px 3px;
+        border:none;
+        padding: 5px;
+
+        &:focus {
+
+            border: 3px solid #4AA0D5;
+
+        }
+
+    }
+
+    .user-item {
+
+        margin: 10px 0;
+
+        &:hover {
+
+            cursor: pointer;
+
+        }
+
+    }
+
+    .search-button {
+
+        width: 130px;
+        height: 42px;
+        border-radius: 0px 3px 3px 0px;
+        position: relative;
+        bottom: 1px;
+
+    }
+
+
+
+}

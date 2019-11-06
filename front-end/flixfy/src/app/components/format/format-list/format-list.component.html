@@ -1,0 +1,19 @@
+<div class="row mt-5 mb-5">
+    <div class="col">
+        <h1>Formatos</h1>
+    </div>
+</div>
+<div class="row format-item" *ngFor="let format of formats" >
+    <div class="col-10" (click)="goToDetail(format.id)" >
+        {{format.description}}
+    </div>
+    <div class="col-2" (click)="deleteFormat(format.id)" >
+        <i class="far fa-times-circle"></i>
+    </div>
+    <hr/>
+</div>
+<div class="row">
+    <div class="col d-flex justify-content-center">
+        <button (click)="goToCreate()" >Adicionar Formato</button>
+    </div>
+</div>

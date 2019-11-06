@@ -1,0 +1,9 @@
+<div class="user-content">
+    <h2 *ngIf="!!user" >Acervo de {{user.name}}</h2>
+    <div *ngIf="!!videoContentList" >
+        <app-vc-list [videoContentList]="videoContentList" ></app-vc-list>
+    </div>
+    <div *ngIf="!videoContentList || videoContentList.length == 0" >
+        <h2>Acervo vazio :(</h2>
+    </div>
+</div>

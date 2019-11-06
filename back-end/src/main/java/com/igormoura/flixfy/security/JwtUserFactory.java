@@ -1,13 +1,12 @@
 package com.igormoura.flixfy.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.igormoura.flixfy.model.user.User;
+import com.igormoura.flixfy.model.user.UserProfile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.igormoura.flixfy.model.user.User;
-import com.igormoura.flixfy.model.user.UserProfile;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JwtUserFactory {
 
@@ -23,6 +22,8 @@ public class JwtUserFactory {
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(userProfile.toString()));
+
+		//System.out.println(authorities);
 
 		return authorities;
 	}

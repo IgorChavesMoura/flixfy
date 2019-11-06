@@ -1,28 +1,48 @@
 package com.igormoura.flixfy.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
+import com.igormoura.flixfy.dto.LoginDTO;
+import com.igormoura.flixfy.dto.TokenDTO;
+import com.igormoura.flixfy.model.user.User;
+import com.igormoura.flixfy.security.JwtTokenUtil;
+import com.igormoura.flixfy.security.JwtUserDetailsService;
+import com.igormoura.flixfy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-import com.igormoura.flixfy.model.user.User;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class AuthController {
+
+	@Autowired
+	private AuthenticationManager authManager;
+
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	@Autowired
+	private JwtUserDetailsService userDetailsService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 	
 	@PostMapping("/login")
 	private ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpServletResponse responseHSR) {
 
-		
-
-		TokenDto response = new TokenDto();
+		TokenDTO response = new TokenDTO();
 
 		Authentication auth = authManager
 				.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
@@ -32,23 +52,13 @@ public class AuthController {
 
 		UserDetails userDetails = userDetailsService.loadUserByUsername(loginDTO.getUsername());
 
-		User user = userService.findByEmail(loginDTO.getUsername()).get();
+		User user = userService.findByLogin(loginDTO.getUsername()).get();
 
 		
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		 	
-		if(userService.isUserBlocked(user.getUuid())) {
-			
-			try {
-				responseHSR.sendError(HttpServletResponse.SC_UNAUTHORIZED, "user.blocked");
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-			return null;
-		}
+
 
 		String token = jwtTokenUtil.getToken(userDetails);
 
@@ -58,6 +68,16 @@ public class AuthController {
 		return ResponseEntity.ok(response);
 
 	}
+
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> createUser(@RequestBody User u){
+
+        userService.save(u);
+
+        return ResponseEntity.ok().build();
+
+    }
 	
 	@PostMapping("/logout")
 	public ResponseEntity<?> logout(HttpSession session) {
@@ -69,6 +89,8 @@ public class AuthController {
 		
 		return ResponseEntity.ok().build();
 	}
+
+
 	
 	
 }

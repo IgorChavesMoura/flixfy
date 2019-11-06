@@ -1,18 +1,17 @@
 package com.igormoura.flixfy.dto;
 
 import com.igormoura.flixfy.model.user.User;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 
 public class TokenDTO {
 	
 	private String token;
 	private User user;
 	
-	public TokenDto() {
+	public TokenDTO() {
 		
 	}
 	
-	public TokenDto(String token, User user) {
+	public TokenDTO(String token, User user) {
 		this.setToken(token);
 		this.setUser(user);
 	}

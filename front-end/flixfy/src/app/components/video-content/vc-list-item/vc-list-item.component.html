@@ -1,0 +1,20 @@
+<div class="vc" (click)="goToDetail()" *ngIf="!!videoContent" >
+    <img [src]="getVcPicture()" >
+    <!-- <div *ngIf="canDelete()" (click)="deleteVc()" class="delete-btn" >
+        <i class="far fa-times-circle"></i>
+    </div> -->
+    <div class="caption">
+        <h5>{{videoContent.title}}</h5>
+        <div class="row">
+            <div class="col">
+                <div>
+                    <p [innerHtml]="getVcType()" ></p>
+                </div>
+            </div>
+            <div class="col">
+                <p *ngIf="isMovie()" [innerHtml]="getVcDuration()" ></p>
+                <p *ngIf="isTvSeries()" [innerHtml]="getVcEpisodes()" ></p>
+            </div>
+        </div>
+    </div>
+</div>

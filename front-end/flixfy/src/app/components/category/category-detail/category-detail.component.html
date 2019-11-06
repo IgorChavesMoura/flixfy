@@ -1,0 +1,18 @@
+<div class="row mt-5">
+    <div class="col">
+        <h1 *ngIf="!!category.id">Editar Categoria</h1>
+        <h1 *ngIf="!category.id">Criar Categoria</h1>
+    </div>
+</div>
+<div class="container mb-3">
+    <form (submit)="saveCategory()">
+        <div class="form-element">
+            <label for="description">Descrição</label>
+            <input type="text" name="description" placeholder="Descrição" [disabled]="!editing"
+                [(ngModel)]="category.description" required>
+        </div>
+        <button *ngIf="editing" type="submit">Salvar</button>
+        <button type="button" *ngIf="!editing" (click)="edit()">Editar</button>
+        <button class="mt-1" type="button" *ngIf="editing" (click)="cancel()">Cancelar</button>
+    </form>
+</div>

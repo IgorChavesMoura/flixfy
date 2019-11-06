@@ -1,0 +1,21 @@
+<div class="container">
+    <form (submit)="login()" >
+        <div>
+            <img id="logo" src="assets/logo_transparent_lm.png" alt="Flixfy">
+        </div>
+        <div class="form-element" >
+            <label for="login">Login</label>
+            <input type="text" name="login" placeholder="Login" [(ngModel)]="username">
+        </div>
+        <div class="form-element" >
+            <label for="password" >Senha</label>
+            <input type="password" name="password" placeholder="Senha" [(ngModel)]="password" >
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+
+    
+    <h1>Ainda não possui conta?</h1>
+    <button type="button" (click)="goToSignUp()" >Cadastrar-se</button>
+    
+</div>

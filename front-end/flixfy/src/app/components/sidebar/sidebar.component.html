@@ -1,0 +1,45 @@
+<div class="row full-height">
+    <div class="col d-flex flex-column align-items-center full-height">
+        <div class="user-pic" >
+            <img src="assets/logo_transparent_lm_inverse.png" alt="Flixfy">
+        </div>
+        <div class="user-name">
+            {{auth.currentUser.name}}
+        </div>
+        <div class="user-login">
+            @{{auth.currentUser.login}}
+        </div>
+        <div class="nav-list">
+            <div class="nav-element" [routerLink]="'formats'" *ngIf="isAdmin()" >
+                <i class="fas fa-file-video"></i>
+                Formatos 
+            </div>
+            <div class="nav-element" [routerLink]="'categories'" *ngIf="isAdmin()" >
+                <i class="fas fa-bookmark"></i>
+                Categorias 
+            </div>
+            <div class="nav-element" [routerLink]="'home'" >
+                <i class="fas fa-video"></i>
+                Meu acervo 
+            </div>
+            <div class="nav-element" [routerLink]="'vc/search'"  >
+                <i class="fas fa-search"></i>
+                Pesquisar Conteúdo 
+            </div>
+            <div class="nav-element" [routerLink]="'users'" >
+                <i class="fas fa-user"></i>
+                Pesquisar Usuários 
+            </div>
+            <div class="nav-element" *ngIf="!isAdmin()" [routerLink]="'user/update'" >
+                <i class="fas fa-pencil-alt"></i>
+                Alterar Cadastro 
+            </div>
+        </div>
+        <div class="logout" (click)="logout()" >
+            Sair <i class="fas fa-sign-out-alt"></i>
+        </div>
+        <div class="delete-user" *ngIf="!isAdmin()" (click)="deleteUser()" >
+            Deletar minha Conta <i class="fas fa-exclamation-circle"></i>
+        </div>
+    </div>
+</div>

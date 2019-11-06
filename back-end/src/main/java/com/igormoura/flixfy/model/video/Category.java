@@ -1,16 +1,14 @@
 package com.igormoura.flixfy.model.video;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
 
 	@Id
@@ -19,7 +17,8 @@ public class Category {
 	private Long id;
 	
 	private String description;
-	
+
+	@JsonIgnore
 	@ManyToMany(mappedBy="categories")
 	private List<VideoContent> videos;
 
@@ -46,7 +45,19 @@ public class Category {
 	public void setVideos(List<VideoContent> videos) {
 		this.videos = videos;
 	}
-	
-	
-	
+
+
+	@Override
+	public boolean equals(Object obj) {
+
+		if(!(obj instanceof Category)){
+
+			return false;
+
+		}
+
+		Category c = (Category) obj;
+
+		return this.id.equals(c.getId());
+	}
 }
